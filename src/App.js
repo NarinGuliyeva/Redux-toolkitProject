@@ -1,23 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './Component/Navbar';
+import List from './Component/List';
+import { useSelector ,useDispatch} from "react-redux"
+import { useEffect } from 'react';
+import { totalPrice } from './Component/Slice';
 
 function App() {
+  const {cartItems} = useSelector( (store) => store.cart )
+  const dispatch = useDispatch()
+  useEffect(  ()=> {
+    dispatch(totalPrice())
+  }   ,[cartItems]  )
+  // cartItems deyeri her deyisdiyi zaman ,(quantity artib azalmasi) ,her defe useEffecti yeniden cagirib , yeniden render edir.
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+<Navbar/>
+<List/>
     </div>
   );
 }
